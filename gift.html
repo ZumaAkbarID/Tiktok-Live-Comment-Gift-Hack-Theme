@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiktok Hack</title>
+  <style>
+    body {
+    font-family: monospace;
+    background-color: #000;
+    color: #0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.terminal {
+    width: 100%;
+    max-width: 800px;
+    background-color: #000;
+    border: 1px solid #0f0;
+    padding: 10px;
+    border-radius: 5px;
+    height: 90%;
+}
+
+.terminal p {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.output {
+    height: 90%;
+    overflow-y: auto;
+    border-bottom: 1px solid #0f0;
+    background-color: #000;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 5px 0px rgba(0, 255, 0, 1);
+    width: 97.5%;
+}
+
+.output p {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.input span {
+    color: #0f0;
+    margin-right: 5px;
+}
+
+.input input {
+    background-color: transparent;
+    border: none;
+    color: #0f0;
+    outline: none;
+    font-family: monospace;
+    width: 100%;
+}
+
+.avatar img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.text-output {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+    color: #0f0;
+}
+
+/*css3 design scrollbar*/
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background: #666;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #232323;
+}
+
+  </style>
+</head>
+<body>
+  <div class="terminal">
+      <p>Jangan Gift Nanti Muncul Namamu</p>
+      <div class="output">
+          <p>Welcome ke Masa Depan</p>
+      </div>
+      <div class="input">
+          <span>&gt;</span>
+          <input type="text" id="command" autofocus value="">
+      </div>
+  </div>
+
+  <script>
+  const output = document.querySelector(".output");
+  const input = document.getElementById("command");
+
+  // Membuat koneksi WebSocket ke server backend
+const socket = new WebSocket('ws://localhost:3000'); // Sesuaikan dengan alamat server WebSocket Anda
+
+// Menangani pesan yang diterima dari server backend
+socket.addEventListener('message', (event) => {
+  const dataGift = event.data;
+  appendToOutput(dataGift);
+});
+
+input.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    const command = input.value;
+    input.value = "";
+
+    // Simulasi eksekusi perintah dan data yang akan dikirimkan ke server
+    // Anda dapat mengirim data ke server dengan mengirim pesan melalui koneksi WebSocket
+    socket.send(command);
+  }
+});
+
+  function appendToOutput(text) {
+    // Membuat elemen baru untuk data yang akan ditambahkan
+    const container = document.createElement("div");
+    container.className = "text-container";
+
+    // Memasukkan HTML data ke dalam elemen
+    container.innerHTML = text;
+
+    // Menambahkan elemen baru ke dalam output
+    output.appendChild(container);
+    output.scrollTop = output.scrollHeight;
+  }
+
+  function simulateCommandExecution(command) {
+    // Anda dapat menambahkan logika eksekusi perintah yang sesungguhnya di sini
+    // Sebagai contoh, saya hanya akan mengembalikan pesan yang mirip dengan output terminal.
+    return `<span class="avatar"><img src="https://picsum.photos/200" alt="Avatar"></span> <span class="text-output">${command}</span>`;
+  }
+
+  // Fokuskan input secara otomatis saat halaman dimuat
+  input.focus();
+</script>
+</body>
+</html>
